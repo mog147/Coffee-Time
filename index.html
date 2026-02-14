@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Coffee | お嬢様の至高のコーヒー時間</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
+<body>
+    <header>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-family: 'Playfair Display', serif;">Aura Coffee</h1>
+            <p class="subtitle">一杯のラテが織りなす、お嬢様だけの穏やかな物語</p>
+            <nav class="main-nav">
+                <button onclick="showSection('latte')">Latte Design</button>
+                <button onclick="showSection('encyclopedia')">Encyclopedia</button>
+                <button onclick="showSection('news')">Coffee News</button>
+            </nav>
+        </div>
+        <div class="scroll-indicator"
+            onclick="document.getElementById('latte-section').scrollIntoView({behavior: 'smooth'})">
+            <span class="material-symbols-outlined">expand_more</span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Latte Customizer Section -->
+        <section id="latte-section" class="section-card app-section active">
+            <h2><span class="material-symbols-outlined">coffee</span> 至高のカフェラテ設計</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">本日のエスプレッソとミルクの調和を整えます。</p>
+
+            <div class="latte-visualizer">
+                <div class="cup-container">
+                    <div id="milk-layer" class="milk-layer" style="height: 70%;"></div>
+                    <div id="espresso-layer" class="espresso-layer" style="height: 30%;"></div>
+                </div>
+
+                <div class="slider-group">
+                    <label for="ratio-slider">エスプレッソ比率: <span id="ratio-val">30</span>%</label>
+                    <input type="range" id="ratio-slider" min="10" max="60" value="30">
+
+                    <div class="stats">
+                        <div class="stat-box">
+                            <small>Espresso</small>
+                            <div id="espresso-ml">30ml</div>
+                        </div>
+                        <div class="stat-box">
+                            <small>Milk</small>
+                            <div id="milk-ml">70ml</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blend Builder nested inside Latte for context -->
+            <div id="blend-section"
+                style="margin-top: 4rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
+                <h3><span class="material-symbols-outlined">temp_preferences_custom</span> ブレンド内容</h3>
+                <div class="blend-inputs" id="bean-container" style="margin-top: 1.5rem;">
+                    <div class="bean-row">
+                        <input type="text" placeholder="豆の名前 (例: エチオピア)" class="bean-name">
+                        <input type="number" placeholder="%" class="bean-pct" value="60">
+                        <span>%</span>
+                    </div>
+                    <div class="bean-row">
+                        <input type="text" placeholder="豆の名前 (例: ブラジル)" class="bean-name">
+                        <input type="number" placeholder="%" class="bean-pct" value="40">
+                        <span>%</span>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button class="secondary-btn" onclick="addBeanRow()">豆を追加</button>
+                    <button onclick="saveLog()">このレシピを保存</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Encyclopedia Section -->
+        <section id="encyclopedia-section" class="section-card app-section">
+            <h2><span class="material-symbols-outlined">menu_book</span> コーヒー図鑑</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">知識という香りを添えて、一杯をより深く。</p>
+            <div class="encyclopedia-grid">
+                <div class="info-card">
+                    <img src="encyclopedia_icons.png" alt="Origins"
+                        style="width: 50px; margin-bottom: 1rem; filter: sepia(1) saturate(2);">
+                    <h3>産地の物語</h3>
+                    <p>エチオピアの華やかな香りから、ブラジルのナッティなコクまで。</p>
+                </div>
+                <div class="info-card">
+                    <span class="material-symbols-outlined"
+                        style="font-size: 3rem; color: var(--primary);">Science</span>
+                    <h3>焙煎の科学</h3>
+                    <p>浅煎りの酸味、深煎りの苦味。火がもたらす魔法の段階を学びます。</p>
+                </div>
+                <div class="info-card">
+                    <span class="material-symbols-outlined"
+                        style="font-size: 3rem; color: var(--primary);">History</span>
+                    <h3>歴史と文化</h3>
+                    <p>カッファの森から世界中へ。コーヒーが歩んだ優雅な旅路。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news-section" class="section-card app-section">
+            <h2><span class="material-symbols-outlined">newspaper</span> 最新のコーヒー便り</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">世界から届く、新鮮なコーヒーの話題をどうぞ。</p>
+            <div id="news-container">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </div>
+        </section>
+
+        <!-- Journal/History Section -->
+        <section id="journal-section" class="section-card app-section">
+            <h2><span class="material-symbols-outlined">history</span> コーヒー時間の記憶</h2>
+            <div id="logs-container">
+                <p style="text-align: center; color: var(--text-muted); padding: 2rem;">まだ記録がございません。お嬢様の最初の一杯をお待ちしております。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 4rem; color: var(--text-muted); font-size: 0.9rem;">
+        &copy; 2026 Aura Coffee - Designed by Genie for My Lady
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
