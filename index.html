@@ -17,116 +17,86 @@
 
 <body>
     <header>
-        <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 style="font-family: 'Playfair Display', serif;">Aura Coffee</h1>
-            <p class="subtitle">一杯のラテが織りなす、お嬢様だけの穏やかな物語</p>
+            <h1 style="font-family: 'Playfair Display', serif;">Aura</h1>
+            <p class="subtitle">静寂の中に、一杯の物語を。</p>
             <nav class="main-nav">
-                <button onclick="showSection('latte')">Latte Design</button>
-                <button onclick="showSection('encyclopedia')">Encyclopedia</button>
-                <button onclick="showSection('news')">Coffee News</button>
+                <button onclick="showSection('latte')">Design</button>
+                <button onclick="showSection('encyclopedia')">Archive</button>
+                <button onclick="showSection('news')">News</button>
             </nav>
-        </div>
-        <div class="scroll-indicator"
-            onclick="document.getElementById('latte-section').scrollIntoView({behavior: 'smooth'})">
-            <span class="material-symbols-outlined">expand_more</span>
         </div>
     </header>
 
     <main>
         <!-- Latte Customizer Section -->
         <section id="latte-section" class="section-card app-section active">
-            <h2><span class="material-symbols-outlined">coffee</span> 至高のカフェラテ設計</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">本日のエスプレッソとミルクの調和を整えます。</p>
+            <h2>Composition</h2>
 
             <div class="latte-visualizer">
                 <div class="cup-container">
-                    <div id="milk-layer" class="milk-layer" style="height: 70%;"></div>
+                    <div id="milk-layer" class="milk-layer" style="height: 100%;"></div>
                     <div id="espresso-layer" class="espresso-layer" style="height: 30%;"></div>
                 </div>
 
                 <div class="slider-group">
-                    <label for="ratio-slider">エスプレッソ比率: <span id="ratio-val">30</span>%</label>
                     <input type="range" id="ratio-slider" min="10" max="60" value="30">
-
-                    <div class="stats">
-                        <div class="stat-box">
-                            <small>Espresso</small>
-                            <div id="espresso-ml">30ml</div>
-                        </div>
-                        <div class="stat-box">
-                            <small>Milk</small>
-                            <div id="milk-ml">70ml</div>
-                        </div>
+                    <div style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-muted);">
+                        RATIO: <span id="ratio-val">30</span>% ESPRESSO
                     </div>
                 </div>
             </div>
 
-            <!-- Blend Builder nested inside Latte for context -->
-            <div id="blend-section"
-                style="margin-top: 4rem; border-top: 1px solid var(--glass-border); padding-top: 2rem;">
-                <h3><span class="material-symbols-outlined">temp_preferences_custom</span> ブレンド内容</h3>
-                <div class="blend-inputs" id="bean-container" style="margin-top: 1.5rem;">
+            <div id="blend-section" style="margin-top: 8rem; text-align: center;">
+                <h3 style="font-weight: 300; margin-bottom: 3rem; letter-spacing: 0.1em;">Beans Harmony</h3>
+                <div class="blend-inputs" id="bean-container" style="display: inline-block; text-align: left;">
                     <div class="bean-row">
-                        <input type="text" placeholder="豆の名前 (例: エチオピア)" class="bean-name">
-                        <input type="number" placeholder="%" class="bean-pct" value="60">
-                        <span>%</span>
-                    </div>
-                    <div class="bean-row">
-                        <input type="text" placeholder="豆の名前 (例: ブラジル)" class="bean-name">
-                        <input type="number" placeholder="%" class="bean-pct" value="40">
-                        <span>%</span>
+                        <input type="text" placeholder="Origin" class="bean-name"
+                            style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 200px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main); margin-right: 1rem;">
+                        <input type="number" placeholder="%" class="bean-pct" value="60"
+                            style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 50px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main);">
                     </div>
                 </div>
-                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-                    <button class="secondary-btn" onclick="addBeanRow()">豆を追加</button>
-                    <button onclick="saveLog()">このレシピを保存</button>
+                <div style="margin-top: 4rem;">
+                    <button class="secondary-btn" onclick="addBeanRow()">+ Add Bean</button>
+                    <button onclick="saveLog()">Save Memory</button>
                 </div>
             </div>
         </section>
 
         <!-- Encyclopedia Section -->
         <section id="encyclopedia-section" class="section-card app-section">
-            <h2><span class="material-symbols-outlined">menu_book</span> コーヒー図鑑</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">知識という香りを添えて、一杯をより深く。</p>
+            <h2>Archive</h2>
             <div class="encyclopedia-grid">
-                <div class="info-card">
-                    <img src="encyclopedia_icons.png" alt="Origins"
-                        style="width: 50px; margin-bottom: 1rem; filter: sepia(1) saturate(2);">
-                    <h3>産地の物語</h3>
-                    <p>エチオピアの華やかな香りから、ブラジルのナッティなコクまで。</p>
-                </div>
-                <div class="info-card">
-                    <span class="material-symbols-outlined"
-                        style="font-size: 3rem; color: var(--primary);">Science</span>
-                    <h3>焙煎の科学</h3>
-                    <p>浅煎りの酸味、深煎りの苦味。火がもたらす魔法の段階を学びます。</p>
-                </div>
-                <div class="info-card">
-                    <span class="material-symbols-outlined"
-                        style="font-size: 3rem; color: var(--primary);">History</span>
-                    <h3>歴史と文化</h3>
-                    <p>カッファの森から世界中へ。コーヒーが歩んだ優雅な旅路。</p>
-                </div>
+                <article class="info-card">
+                    <h3>01. Origins</h3>
+                    <p>遥か遠い大地の呼吸。豆のひとつひとつに刻まれた、雨と太陽の記憶を辿ります。</p>
+                </article>
+                <article class="info-card">
+                    <h3>02. Roasting</h3>
+                    <p>熱と時間の対話。淡い琥珀色から深い漆黒へ、香りが形を変える瞬間について。</p>
+                </article>
+                <article class="info-card">
+                    <h3>03. Culture</h3>
+                    <p>一杯を囲む沈黙と、語らわれる物語。世界中で愛されてきた、その優雅な歴史。</p>
+                </article>
             </div>
         </section>
 
         <!-- News Section -->
         <section id="news-section" class="section-card app-section">
-            <h2><span class="material-symbols-outlined">newspaper</span> 最新のコーヒー便り</h2>
-            <p style="margin-bottom: 2rem; color: var(--text-muted);">世界から届く、新鮮なコーヒーの話題をどうぞ。</p>
-            <div id="news-container">
-                <div class="skeleton"></div>
+            <h2>Whispers</h2>
+            <div id="news-container" style="max-width: 600px; margin: 0 auto;">
                 <div class="skeleton"></div>
             </div>
         </section>
 
         <!-- Journal/History Section -->
         <section id="journal-section" class="section-card app-section">
-            <h2><span class="material-symbols-outlined">history</span> コーヒー時間の記憶</h2>
-            <div id="logs-container">
-                <p style="text-align: center; color: var(--text-muted); padding: 2rem;">まだ記録がございません。お嬢様の最初の一杯をお待ちしております。
-                </p>
+            <h2>Memory</h2>
+            <div id="logs-container" style="max-width: 600px; margin: 0 auto;">
+                <p style="text-align: center; color: var(--text-muted); padding: 5rem; font-style: italic;">
+                    まだ、物語は綴られておりません。</p>
             </div>
         </section>
     </main>

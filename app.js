@@ -13,17 +13,7 @@ const updateLatte = () => {
     // Total cup height is represented as 100% in visualizer
     // Espresso is the bottom layer, Milk sits on top
     espressoLayer.style.height = `${ratio}%`;
-    milkLayer.style.height = `100%`; // Milk fills the whole thing, espresso overlaps via z-index or absolute positioning logic
-    // Actually, in CSS, espresso is on bottom. Let's make milk-layer height = 100% - foam (simulated) or just keep it simple.
-    // Let's adjust: Espresso at bottom, Milk level is 100%.
-
-    // For realism, let's say total is 240ml
-    const totalMl = 240;
-    const eMl = Math.round(totalMl * (ratio / 100));
-    const mMl = totalMl - eMl;
-
-    espressoMl.textContent = `${eMl}ml`;
-    milkMl.textContent = `${mMl}ml`;
+    milkLayer.style.height = `100%`;
 };
 
 ratioSlider.addEventListener('input', updateLatte);
@@ -34,10 +24,10 @@ const beanContainer = document.getElementById('bean-container');
 function addBeanRow() {
     const row = document.createElement('div');
     row.className = 'bean-row';
+    row.style.marginTop = '1rem';
     row.innerHTML = `
-        <input type="text" placeholder="豆の名前" class="bean-name">
-        <input type="number" placeholder="%" class="bean-pct">
-        <span>%</span>
+        <input type="text" placeholder="Origin" class="bean-name" style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 220px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main); margin-right: 1rem;">
+        <input type="number" placeholder="%" class="bean-pct" style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 50px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main);">
     `;
     beanContainer.appendChild(row);
 }
@@ -61,20 +51,18 @@ function saveLog() {
 
     const logCard = document.createElement('div');
     logCard.style.cssText = `
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.1);
-        padding: 1.5rem;
-        border-radius: 15px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        padding: 2rem 0;
         margin-bottom: 1rem;
-        animation: fadeInUp 0.5s ease;
+        animation: fadeInUp 1s ease;
     `;
 
     logCard.innerHTML = `
-        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-            <strong style="color: var(--primary);">${dateStr} ${timeStr}</strong>
-            <span style="font-size: 0.8rem; color: var(--text-muted);">Cafe Latte (${ratio}%)</span>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+            <span>${dateStr} ${timeStr}</span>
+            <span>Ratio ${ratio}%</span>
         </div>
-        <p style="font-size: 0.9rem;">${blendSummary.length > 0 ? blendSummary.join(' / ') : 'コーヒー豆の記録なし'}</p>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-main);">${blendSummary.length > 0 ? blendSummary.join(' / ') : 'A moment of silence'}</p>
     `;
 
     if (logsContainer.querySelector('p')) {
@@ -86,11 +74,11 @@ function saveLog() {
     // Visual feedback
     const btn = event.target;
     const originalText = btn.textContent;
-    btn.textContent = '保存いたしました';
-    btn.style.background = '#4CAF50';
+    btn.textContent = 'Archived';
+    btn.style.opacity = '0.5';
     setTimeout(() => {
         btn.textContent = originalText;
-        btn.style.background = '';
+        btn.style.opacity = '1';
     }, 2000);
 }
 
