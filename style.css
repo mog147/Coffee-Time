@@ -179,8 +179,8 @@ input[type="range"]::-webkit-slider-thumb {
 /* Encyclopedia Minimal Grid */
 .encyclopedia-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 8rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 6rem 4rem;
 }
 
 .info-card {
