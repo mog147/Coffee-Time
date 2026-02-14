@@ -18,32 +18,11 @@ const updateLatte = () => {
 
 ratioSlider.addEventListener('input', updateLatte);
 
-// Blend Builder Logic
-const beanContainer = document.getElementById('bean-container');
-
-function addBeanRow() {
-    const row = document.createElement('div');
-    row.className = 'bean-row';
-    row.style.marginTop = '1rem';
-    row.innerHTML = `
-        <input type="text" placeholder="Origin" class="bean-name" style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 220px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main); margin-right: 1rem;">
-        <input type="number" placeholder="%" class="bean-pct" style="border-bottom: 1px solid #eee; padding: 0.5rem 0; width: 50px; background: transparent; border-top:none; border-left:none; border-right:none; color: var(--text-main);">
-    `;
-    beanContainer.appendChild(row);
-}
-
+// Bean functions removed as per request
 // History Logic
 const logsContainer = document.getElementById('logs-container');
 
 function saveLog() {
-    const beans = document.querySelectorAll('.bean-row');
-    let blendSummary = [];
-    beans.forEach(row => {
-        const name = row.querySelector('.bean-name').value;
-        const pct = row.querySelector('.bean-pct').value;
-        if (name && pct) blendSummary.push(`${name} (${pct}%)`);
-    });
-
     const ratio = ratioSlider.value;
     const now = new Date();
     const timeStr = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
@@ -62,7 +41,7 @@ function saveLog() {
             <span>${dateStr} ${timeStr}</span>
             <span>Ratio ${ratio}%</span>
         </div>
-        <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-main);">${blendSummary.length > 0 ? blendSummary.join(' / ') : 'A moment of silence'}</p>
+        <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--text-main);">Stay balanced in this moment.</p>
     `;
 
     if (logsContainer.querySelector('p')) {
@@ -118,13 +97,17 @@ async function fetchCoffeeNews() {
 
         if (data.status === 'ok') {
             newsContainer.innerHTML = '';
-            data.items.slice(0, 5).forEach(item => {
+            data.items.slice(0, 5).forEach((item, index) => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
+                card.id = `news-${index}`;
                 card.innerHTML = `
-                    <h4><a href="${item.link}" target="_blank" style="color: inherit; text-decoration: none;">${item.title}</a></h4>
-                    <p style="font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-main);">${item.description.replace(/<[^>]*>?/gm, '').substring(0, 150)}...</p>
-                    <small>${new Date(item.pubDate).toLocaleDateString('ja-JP')} | Daily Coffee News</small>
+                    <h4>${item.title}</h4>
+                    <p class="news-desc" style="font-size: 0.85rem; margin-bottom: 1rem; color: var(--text-main);">${item.description.replace(/<[^>]*>?/gm, '').substring(0, 150)}...</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <small>${new Date(item.pubDate).toLocaleDateString('ja-JP')}</small>
+                        <button class="secondary-btn" style="padding: 0.3rem 1rem; font-size: 0.7rem;" onclick="translateNews(this, \`${item.title}\`, \`${item.description.replace(/<[^>]*>?/gm, '').substring(0, 150)}\`)">和訳する</button>
+                    </div>
                 `;
                 newsContainer.appendChild(card);
             });
@@ -132,6 +115,38 @@ async function fetchCoffeeNews() {
             throw new Error('News fetch failed');
         }
     } catch (error) {
-        newsContainer.innerHTML = `<p style="color: var(--text-muted); text-align: center;">便りの取得に失敗いたしました。後ほどお試しくださいませ。</p>`;
+        newsContainer.innerHTML = `<p style="color: var(--text-muted); text-align: center;">便りの取得に失敗いたしました。</p>`;
+    }
+}
+
+async function translateNews(btn, title, desc) {
+    const card = btn.closest('.news-card');
+    const titleEl = card.querySelector('h4');
+    const descEl = card.querySelector('.news-desc');
+
+    btn.textContent = '翻訳中...';
+    btn.disabled = true;
+
+    try {
+        const translate = async (text) => {
+            const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|ja`);
+            const json = await res.json();
+            return json.responseData.translatedText;
+        };
+
+        const [translatedTitle, translatedDesc] = await Promise.all([
+            translate(title),
+            translate(desc)
+        ]);
+
+        titleEl.textContent = translatedTitle;
+        descEl.textContent = translatedDesc;
+        btn.textContent = '翻訳完了';
+    } catch (error) {
+        btn.textContent = 'エラー';
+        setTimeout(() => {
+            btn.textContent = '和訳する';
+            btn.disabled = false;
+        }, 2000);
     }
 }
