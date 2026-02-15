@@ -79,6 +79,17 @@ main {
     letter-spacing: -0.02em
 }
 
+/* Tip Card */
+.tip-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--coffee-light);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-top: 12px
+}
+
 /* Bottom Nav */
 .bottom-nav {
     position: fixed;

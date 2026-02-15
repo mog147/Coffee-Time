@@ -251,8 +251,35 @@ function getMethodIcon(method) {
     return map[method] || 'coffee';
 }
 
+const coffeeTips = [
+    'コーヒーの最適な抽出温度は88〜96°C。沸騰直後のお湯は苦味が出やすい。',
+    '挽いた豆は30分で香りの半分が飛ぶ。飲む直前に挽くのがベスト。',
+    'エチオピアはコーヒー発祥の地。野生のコーヒーの木が今も自生している。',
+    'カフェインの効果が出るまで約20分。効果のピークは摂取後45分頃。',
+    'コーヒーは冷凍保存が長持ち。ただし解凍後の再冷凍はNG。',
+    'フレンチプレスは油分も抽出するため、最もコーヒー豆本来の味が出る。',
+    'エスプレッソは「速い」という意味。30秒で抽出するのが基本。',
+    'コーヒーベルト：赤道を挟む南北25度の地帯でほぼ全てのコーヒーが生産される。',
+    'ドリップで最初の蒸らし（30秒）はCO2を放出し、均一な抽出を助ける。',
+    '水出しコーヒーはカフェイン量がホットとほぼ同じだが、酸味が約67%少ない。',
+    'ラテアートのための理想的なミルク温度は60〜65°C。',
+    'ブラジルは世界最大のコーヒー生産国で、全世界の約1/3を占める。',
+    '中煎りは酸味と苦味のバランスが最もよく、豆の個性が出やすい。',
+    'コーヒーの風味は約800種以上の化合物で構成されている。ワインの2倍以上。',
+];
+
+function getDailyTip() {
+    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+    return coffeeTips[dayOfYear % coffeeTips.length];
+}
+
 function renderHome() {
     updateGreeting();
+
+    // Daily tip
+    const tipEl = document.getElementById('daily-tip');
+    if (tipEl) tipEl.textContent = getDailyTip();
+
     const logs = getLogs();
     const today = new Date().toDateString();
     const todayLogs = logs.filter(l => new Date(l.date).toDateString() === today);
