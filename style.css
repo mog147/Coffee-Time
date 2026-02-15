@@ -284,6 +284,65 @@ input[type="range"]::-webkit-slider-thumb {
     color: var(--text-muted);
 }
 
+/* Minimal World Map / Coffee Belt */
+.world-map-container {
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.coffee-belt {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    height: 20%;
+    background: rgba(109, 76, 65, 0.05);
+    /* Very subtle brown tint */
+    border-top: 1px dashed rgba(109, 76, 65, 0.1);
+    border-bottom: 1px dashed rgba(109, 76, 65, 0.1);
+}
+
+.map-continents {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    padding: 0 10%;
+}
+
+.origin-marker {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: var(--accent-coffee);
+    border-radius: 50%;
+}
+
+/* Markers positioning based on abstract map */
+.marker-africa {
+    left: 48%;
+    top: 48%;
+}
+
+.marker-latin {
+    left: 25%;
+    top: 52%;
+}
+
+.marker-asia {
+    left: 75%;
+    top: 55%;
+}
+
 button {
     background: var(--text-main);
     color: #fff;
