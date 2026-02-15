@@ -89,7 +89,8 @@ function showSection(sectionId) {
 async function fetchCoffeeNews() {
     const newsContainer = document.getElementById('news-container');
     const rssUrl = 'https://dailycoffeenews.com/feed/';
-    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+    // Add a timestamp to bypass any intermediate caching
+    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&t=${Date.now()}`;
 
     try {
         const response = await fetch(proxyUrl);
