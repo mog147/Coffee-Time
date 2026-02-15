@@ -76,6 +76,7 @@ function toggleTimer() {
                 timerRunning = false;
                 document.getElementById('toggle-icon').textContent = 'play_arrow';
                 document.getElementById('timer-label').textContent = '完了！';
+                playDoneSound();
                 if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
             }
         }, 1000);
@@ -119,6 +120,23 @@ function startQuickTimer(name, seconds) {
     document.getElementById('btn-reset').disabled = false;
     document.getElementById('btn-stop').disabled = false;
     toggleTimer();
+}
+
+function playDoneSound() {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.15, 0.3].forEach((delay, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.frequency.value = [523, 659, 784][i];
+            gain.gain.setValueAtTime(0.15, ctx.currentTime + delay);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.4);
+            osc.start(ctx.currentTime + delay);
+            osc.stop(ctx.currentTime + delay + 0.4);
+        });
+    } catch {}
 }
 
 // === News ===
