@@ -283,8 +283,27 @@ function renderHome() {
     const logs = getLogs();
     const today = new Date().toDateString();
     const todayLogs = logs.filter(l => new Date(l.date).toDateString() === today);
-    const container = document.getElementById('today-log');
 
+    // Today stats
+    const caffeineMap = {
+        'ハンドドリップ': 95, 'エスプレッソ': 63, 'フレンチプレス': 80,
+        'エアロプレス': 75, '水出し': 100, 'カフェで購入': 95
+    };
+    const totalCaffeine = todayLogs.reduce((s, l) => s + (caffeineMap[l.method] || 80), 0);
+    const statsEl = document.getElementById('today-stats');
+    statsEl.innerHTML = `
+        <div class="stat-pill">
+            <div class="stat-num">${todayLogs.length}</div>
+            <div class="stat-label">今日の杯数</div>
+        </div>
+        <div class="stat-pill">
+            <div class="stat-num">${totalCaffeine}</div>
+            <div class="stat-label">mg カフェイン</div>
+        </div>
+    `;
+
+    // Today log
+    const container = document.getElementById('today-log');
     if (todayLogs.length === 0) {
         container.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:12px 0">まだ今日のコーヒーはありません</div>';
     } else {
