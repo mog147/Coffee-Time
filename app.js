@@ -136,17 +136,22 @@ async function fetchNews() {
         const data = await res.json();
         if (data.status === 'ok') {
             container.innerHTML = '';
-            data.items.slice(0, 8).forEach(item => {
+            data.items.slice(0, 8).forEach((item, i) => {
                 const desc = item.description.replace(/<[^>]*>/g, '').substring(0, 120);
                 const date = new Date(item.pubDate).toLocaleDateString('ja-JP');
                 const card = document.createElement('div');
                 card.className = 'news-card';
+                card.dataset.title = item.title;
+                card.dataset.desc = desc;
                 card.innerHTML = `
                     <h4>${item.title}</h4>
                     <p>${desc}...</p>
                     <div class="news-meta">
                         <span>${date}</span>
-                        <button class="btn-translate" onclick="translateCard(this,'${item.title.replace(/'/g, "\\'")}','${desc.replace(/'/g, "\\'")}')">和訳</button>
+                        <div style="display:flex;gap:6px">
+                            <button class="btn-translate" onclick="translateFromCard(this)">和訳</button>
+                            <a href="${item.link}" target="_blank" rel="noopener" class="btn-translate" style="text-decoration:none;text-align:center">元記事</a>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -158,8 +163,10 @@ async function fetchNews() {
     }
 }
 
-async function translateCard(btn, title, desc) {
+async function translateFromCard(btn) {
     const card = btn.closest('.news-card');
+    const title = card.dataset.title;
+    const desc = card.dataset.desc;
     btn.textContent = '翻訳中...';
     btn.disabled = true;
     try {
