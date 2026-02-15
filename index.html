@@ -3,254 +3,190 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Coffee | お嬢様の至高のコーヒー時間</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Coffee Time</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
-    <header>
-        <div class="hero-content">
-            <h1 style="font-family: 'Playfair Display', serif;">Aura</h1>
-            <p class="subtitle">静寂の中に、一杯の物語を。</p>
-            <nav class="main-nav">
-                <button onclick="showSection('latte')">Design</button>
-                <button onclick="showSection('encyclopedia')">Archive</button>
-                <button onclick="showSection('news')">News</button>
-            </nav>
-        </div>
-    </header>
+    <div class="topbar">
+        <h1>Coffee Time</h1>
+    </div>
 
     <main>
-        <!-- Latte Customizer Section -->
-        <section id="latte-section" class="section-card app-section active">
-            <h2>Composition</h2>
+        <!-- Home / Today -->
+        <section id="page-home" class="page active">
+            <div class="greeting" id="greeting"></div>
 
-            <div class="latte-visualizer">
-                <div class="cup-container">
-                    <div id="milk-layer" class="milk-layer" style="height: 100%;"></div>
-                    <div id="espresso-layer" class="espresso-layer" style="height: 30%;"></div>
-                </div>
+            <div class="section-label">TODAY'S COFFEE</div>
+            <div id="today-log"></div>
+            <button class="btn-add" onclick="openLogModal()">
+                <span class="mi">add</span> 記録する
+            </button>
 
-                <div class="slider-group">
-                    <input type="range" id="ratio-slider" min="10" max="60" value="30">
-                    <div style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-muted);">
-                        RATIO: <span id="ratio-val">30</span>% ESPRESSO
-                    </div>
-                </div>
-            </div>
-
-            <div id="composition-footer" style="margin-top: 8rem; text-align: center;">
-                <button onclick="saveLog()">Save Memory</button>
-            </div>
-        </section>
-
-        <!-- Encyclopedia Section -->
-        <section id="encyclopedia-section" class="section-card app-section">
-            <h2>Archive</h2>
-            <div class="encyclopedia-grid">
-                <article class="info-card" style="max-width: 100%;">
-                    <h3>01. Beverage Variations</h3>
-                    <p>比率が生み出す、名前の魔法。層の重なりが描く繊細な違い。</p>
-                    <div class="variations-grid">
-                        <div class="variation-item">
-                            <div class="mini-cup">
-                                <div class="layer foam" style="height: 100%;"></div>
-                                <div class="layer espresso" style="height: 30%;"></div>
-                            </div>
-                            <span class="variation-name">Macchiato</span>
-                            <span class="variation-ratio">Small foam head</span>
-                        </div>
-                        <div class="variation-item">
-                            <div class="mini-cup">
-                                <div class="layer milk" style="height: 100%;"></div>
-                                <div class="layer espresso" style="height: 50%;"></div>
-                            </div>
-                            <span class="variation-name">Cortado</span>
-                            <span class="variation-ratio">1:1 Ratio</span>
-                        </div>
-                        <div class="variation-item">
-                            <div class="mini-cup">
-                                <div class="layer foam" style="height: 100%;"></div>
-                                <div class="layer milk" style="height: 66%;"></div>
-                                <div class="layer espresso" style="height: 33%;"></div>
-                            </div>
-                            <span class="variation-name">Cappuccino</span>
-                            <span class="variation-ratio">1:1:1 Harmonic</span>
-                        </div>
-                        <div class="variation-item">
-                            <div class="mini-cup">
-                                <div class="layer milk" style="height: 100%;"></div>
-                                <div class="layer espresso" style="height: 25%;"></div>
-                            </div>
-                            <span class="variation-name">Latte</span>
-                            <span class="variation-ratio">Milky & Soft</span>
-                        </div>
-                        <div class="variation-item">
-                            <div class="mini-cup">
-                                <div class="layer foam" style="height: 100%;"></div>
-                                <div class="layer milk" style="height: 90%;"></div>
-                                <div class="layer espresso" style="height: 40%;"></div>
-                            </div>
-                            <span class="variation-name">Flat White</span>
-                            <span class="variation-ratio">Thin microfoam</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="info-card" style="max-width: 100%;">
-                    <h3>02. Origins & Terroir</h3>
-                    <p>遙かなる地の息吹。赤道を挟む「コーヒーベルト」が育む、個性豊かな物語。</p>
-
-                    <div class="world-map-container">
-                        <div class="coffee-belt"></div>
-                        <div class="map-continents">
-                            <span style="position: absolute; left: 15%; top: 30%;">AMERICAS</span>
-                            <span style="position: absolute; left: 45%; top: 30%;">AFRICA</span>
-                            <span style="position: absolute; left: 75%; top: 30%;">ASIA</span>
-                        </div>
-                        <div class="origin-marker marker-latin"></div>
-                        <div class="origin-marker marker-africa"></div>
-                        <div class="origin-marker marker-asia"></div>
-                    </div>
-
-                    <div
-                        style="margin-top: 2rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); padding-top: 1.5rem;">
-                        <ul style="list-style: none; line-height: 2;">
-                            <li><strong style="color: var(--text-main);">Latin America:</strong>
-                                ブラジル、グアテマラ。ナッツやチョコのような甘い安定感。</li>
-                            <li><strong style="color: var(--text-main);">Africa:</strong> エチオピア、ケニア。野生の花やベリー、鮮烈な酸味の物語。
-                            </li>
-                            <li><strong style="color: var(--text-main);">Asia & Others:</strong>
-                                インドネシアなど。大地やスパイスを感じる深いコク。</li>
-                        </ul>
-                    </div>
-                </article>
-                <article class="info-card">
-                    <h3>03. Roasting</h3>
-                    <p>熱と時間の対話。淡い琥珀色から深い漆黒へ、香りが形を変える瞬間について。</p>
-                    <div class="roast-scale">
-                        <div class="roast-bean roast-light" title="Light"></div>
-                        <div class="roast-bean roast-medium" title="Medium"></div>
-                        <div class="roast-bean roast-dark" title="Dark"></div>
-                    </div>
-                    <div
-                        style="display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em;">
-                        <span>ACIDITY</span>
-                        <span>BITTERNESS</span>
-                    </div>
-                </article>
-                <article class="info-card">
-                    <h3>04. Grind</h3>
-                    <p>粒子の細やかさが決める、味わいの解像度。抽出法との調和。</p>
-                    <div class="grind-viz">
-                        <div class="particle-group">
-                            <div class="particle particle-fine"></div>
-                            <div class="particle particle-fine"></div>
-                            <div class="particle particle-fine"></div>
-                            <div class="particle particle-fine"></div>
-                            <div class="particle particle-fine"></div>
-                            <div class="particle particle-fine"></div>
-                        </div>
-                        <div class="particle-group">
-                            <div class="particle particle-medium"></div>
-                            <div class="particle particle-medium"></div>
-                            <div class="particle particle-medium"></div>
-                            <div class="particle particle-medium"></div>
-                        </div>
-                        <div class="particle-group">
-                            <div class="particle particle-coarse"></div>
-                            <div class="particle particle-coarse"></div>
-                        </div>
-                    </div>
-                    <div
-                        style="display: flex; justify-content: space-around; margin-top: 1rem; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; width: 100%;">
-                        <span>FINE</span>
-                        <span>MEDIUM</span>
-                        <span>COARSE</span>
-                    </div>
-                </article>
-                <article class="info-card">
-                    <h3>05. Temperature</h3>
-                    <p>熱が引き出す、隠れた表情。数度の違いが、風味の輪郭を鮮やかに描き出します。</p>
-                    <div class="temp-viz">
-                        <div class="temp-line"></div>
-                        <div class="temp-zone" style="left: 60%; width: 30%;"></div>
-                        <div class="temp-marker" style="left: 0%;" data-label="40°C"></div>
-                        <div class="temp-marker" style="left: 45%;" data-label="80°C"></div>
-                        <div class="temp-marker" style="left: 75%;" data-label="92°C"></div>
-                        <div class="temp-marker" style="left: 100%;" data-label="100°C"></div>
-                    </div>
-                    <p style="margin-top: 2rem; font-size: 0.7rem; color: var(--text-muted); text-align: center;">
-                        Optimal Zone: 88°C - 96°C</p>
-                </article>
-                <article class="info-card">
-                    <h3>06. Milk Texture</h3>
-                    <p>滑らかな絹の如き口当たり。スチームが生む甘みと、エスプレッソとの完璧な融合。</p>
-                    <div class="milk-viz">
-                        <div class="milk-waves"></div>
-                    </div>
-                    <p
-                        style="margin-top: 1.5rem; font-size: 0.7rem; color: var(--text-muted); text-align: center; letter-spacing: 0.1em;">
-                        SILKY MICROFOAM</p>
-                </article>
-                <article class="info-card">
-                    <h3>07. Vessels</h3>
-                    <p>唇に触れる瞬間の質感。陶器の温もりからガラスの透明感まで、器が彩る感覚。</p>
-                    <div class="vessel-viz">
-                        <div class="vessel-item" style="text-align: center;">
-                            <div class="vessel-shape shape-ceramic"></div>
-                            <span
-                                style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-top: 0.5rem;">CERAMIC</span>
-                        </div>
-                        <div class="vessel-item" style="text-align: center;">
-                            <div class="vessel-shape shape-glass"></div>
-                            <span
-                                style="font-size: 0.6rem; color: var(--text-muted); display: block; margin-top: 0.5rem;">GLASS</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="info-card">
-                    <h3>08. Culture</h3>
-                    <p>一杯を囲む沈黙と物語。世界中で愛されてきた、その優雅な歴史と繋がりの時間。</p>
-                    <div class="culture-viz">
-                        <div class="culture-line"></div>
-                        <div class="culture-dot"></div>
-                    </div>
-                    <p
-                        style="margin-top: 1rem; font-size: 0.7rem; color: var(--text-muted); text-align: center; font-style: italic;">
-                        A timeless connection.</p>
-                </article>
+            <div class="section-label" style="margin-top:24px">QUICK TIMER</div>
+            <div class="timer-presets">
+                <button class="preset-btn" onclick="startQuickTimer(240)">
+                    <span class="mi" style="font-size:20px">coffee</span>
+                    <span class="preset-name">ドリップ</span>
+                    <span class="preset-time">4:00</span>
+                </button>
+                <button class="preset-btn" onclick="startQuickTimer(30)">
+                    <span class="mi" style="font-size:20px">local_cafe</span>
+                    <span class="preset-name">エスプレッソ</span>
+                    <span class="preset-time">0:30</span>
+                </button>
+                <button class="preset-btn" onclick="startQuickTimer(240)">
+                    <span class="mi" style="font-size:20px">water_drop</span>
+                    <span class="preset-name">フレンチプレス</span>
+                    <span class="preset-time">4:00</span>
+                </button>
             </div>
         </section>
 
-        <!-- News Section -->
-        <section id="news-section" class="section-card app-section">
-            <h2>Whispers</h2>
-            <div id="news-container" style="max-width: 600px; margin: 0 auto;">
+        <!-- Timer -->
+        <section id="page-timer" class="page">
+            <div class="timer-display">
+                <div class="timer-time" id="timer-display">0:00</div>
+                <div class="timer-label" id="timer-label">タイマーを選択</div>
+            </div>
+
+            <div class="timer-controls">
+                <button class="timer-ctrl-btn" onclick="resetTimer()" id="btn-reset" disabled>
+                    <span class="mi">replay</span>
+                </button>
+                <button class="timer-main-btn" onclick="toggleTimer()" id="btn-toggle" disabled>
+                    <span class="mi" id="toggle-icon">play_arrow</span>
+                </button>
+                <button class="timer-ctrl-btn" onclick="stopTimer()" id="btn-stop" disabled>
+                    <span class="mi">stop</span>
+                </button>
+            </div>
+
+            <div class="section-label">PRESETS</div>
+            <div class="method-list">
+                <div class="method-item" onclick="selectMethod('ハンドドリップ',240)">
+                    <span class="mi method-icon">coffee</span>
+                    <div class="method-info">
+                        <div class="method-name">ハンドドリップ</div>
+                        <div class="method-desc">蒸らし30秒 → 注ぎ3分30秒</div>
+                    </div>
+                    <span class="method-time">4:00</span>
+                </div>
+                <div class="method-item" onclick="selectMethod('エスプレッソ',30)">
+                    <span class="mi method-icon">local_cafe</span>
+                    <div class="method-info">
+                        <div class="method-name">エスプレッソ</div>
+                        <div class="method-desc">抽出25〜30秒</div>
+                    </div>
+                    <span class="method-time">0:30</span>
+                </div>
+                <div class="method-item" onclick="selectMethod('フレンチプレス',240)">
+                    <span class="mi method-icon">water_drop</span>
+                    <div class="method-info">
+                        <div class="method-name">フレンチプレス</div>
+                        <div class="method-desc">お湯を注いで4分待つ</div>
+                    </div>
+                    <span class="method-time">4:00</span>
+                </div>
+                <div class="method-item" onclick="selectMethod('エアロプレス',90)">
+                    <span class="mi method-icon">filter_alt</span>
+                    <div class="method-info">
+                        <div class="method-name">エアロプレス</div>
+                        <div class="method-desc">浸漬1分 → プレス30秒</div>
+                    </div>
+                    <span class="method-time">1:30</span>
+                </div>
+                <div class="method-item" onclick="selectMethod('水出し',43200)">
+                    <span class="mi method-icon">ac_unit</span>
+                    <div class="method-info">
+                        <div class="method-name">水出しコーヒー</div>
+                        <div class="method-desc">冷蔵庫で12時間</div>
+                    </div>
+                    <span class="method-time">12:00:00</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- News -->
+        <section id="page-news" class="page">
+            <div class="section-label">LATEST</div>
+            <div id="news-container">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
                 <div class="skeleton"></div>
             </div>
         </section>
 
-        <!-- Journal/History Section -->
-        <section id="journal-section" class="section-card app-section">
-            <h2>Memory</h2>
-            <div id="logs-container" style="max-width: 600px; margin: 0 auto;">
-                <p style="text-align: center; color: var(--text-muted); padding: 5rem; font-style: italic;">
-                    まだ、物語は綴られておりません。</p>
+        <!-- Log / Diary -->
+        <section id="page-log" class="page">
+            <div class="log-summary" id="log-summary"></div>
+            <div class="section-label">HISTORY</div>
+            <div id="log-list"></div>
+            <div class="empty-state" id="log-empty">
+                <span class="mi" style="font-size:32px;color:var(--text3)">coffee</span>
+                <p>まだ記録がありません</p>
             </div>
         </section>
     </main>
 
-    <footer style="text-align: center; padding: 4rem; color: var(--text-muted); font-size: 0.9rem;">
-        &copy; 2026 Aura Coffee - Designed by Genie for My Lady
-    </footer>
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" data-page="home" onclick="navigate('home')">
+            <span class="mi">home</span>
+            <span class="nav-label">ホーム</span>
+        </button>
+        <button class="nav-item" data-page="timer" onclick="navigate('timer')">
+            <span class="mi">timer</span>
+            <span class="nav-label">タイマー</span>
+        </button>
+        <button class="nav-item" data-page="news" onclick="navigate('news')">
+            <span class="mi">newspaper</span>
+            <span class="nav-label">ニュース</span>
+        </button>
+        <button class="nav-item" data-page="log" onclick="navigate('log')">
+            <span class="mi">book</span>
+            <span class="nav-label">記録</span>
+        </button>
+    </nav>
+
+    <!-- Coffee Log Modal -->
+    <div id="log-overlay" class="modal-overlay" onclick="closeLogModal()"></div>
+    <div id="log-modal" class="modal">
+        <div class="modal-handle"></div>
+        <h3>コーヒーを記録</h3>
+        <div class="form-group">
+            <label>抽出方法</label>
+            <select id="log-method">
+                <option>ハンドドリップ</option>
+                <option>エスプレッソ</option>
+                <option>フレンチプレス</option>
+                <option>エアロプレス</option>
+                <option>水出し</option>
+                <option>カフェで購入</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>豆・メモ</label>
+            <input type="text" id="log-beans" placeholder="例: エチオピア イルガチェフェ">
+        </div>
+        <div class="form-group">
+            <label>評価</label>
+            <div class="rating" id="rating">
+                <span class="star" onclick="setRating(1)">★</span>
+                <span class="star" onclick="setRating(2)">★</span>
+                <span class="star" onclick="setRating(3)">★</span>
+                <span class="star" onclick="setRating(4)">★</span>
+                <span class="star" onclick="setRating(5)">★</span>
+            </div>
+        </div>
+        <button class="btn-save" onclick="saveLogEntry()">保存</button>
+    </div>
 
     <script src="app.js"></script>
 </body>
