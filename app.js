@@ -49,6 +49,14 @@ function updateTimerDisplay() {
     }
 }
 
+const methodTips = {
+    'ハンドドリップ': '<h4>ハンドドリップのコツ</h4>豆: 中挽き 15g / お湯: 250ml (90°C)<br>① 30秒蒸らし（お湯40ml）<br>② 中心から「の」の字に3回に分けて注ぐ<br>③ 合計4分で抽出完了',
+    'エスプレッソ': '<h4>エスプレッソのコツ</h4>豆: 極細挽き 18g / 抽出量: 36ml<br>① タンピングは均一に約14kg<br>② 抽出時間25〜30秒が理想<br>③ クレマがヘーゼルナッツ色ならOK',
+    'フレンチプレス': '<h4>フレンチプレスのコツ</h4>豆: 粗挽き 15g / お湯: 250ml (93°C)<br>① お湯を注いで蓋をする<br>② 4分待つ（かき混ぜない）<br>③ ゆっくりプランジャーを下ろす',
+    'エアロプレス': '<h4>エアロプレスのコツ</h4>豆: 中細挽き 15g / お湯: 200ml (85°C)<br>① インバート法がおすすめ<br>② 1分浸漬 → 30秒かけてプレス<br>③ 濃度はお湯で調整',
+    '水出し': '<h4>水出しコーヒーのコツ</h4>豆: 粗挽き 80g / 水: 1L (常温or冷水)<br>① 容器に豆と水を入れて軽く混ぜる<br>② 冷蔵庫で12〜24時間<br>③ フィルターで濾して完成',
+};
+
 function selectMethod(name, seconds) {
     timerMethod = name;
     timerTotal = seconds;
@@ -63,6 +71,13 @@ function selectMethod(name, seconds) {
     document.getElementById('btn-stop').disabled = false;
     document.querySelectorAll('.method-item').forEach(el => el.classList.remove('selected'));
     event.currentTarget.classList.add('selected');
+    const tipsEl = document.getElementById('method-tips');
+    if (methodTips[name]) {
+        tipsEl.innerHTML = methodTips[name];
+        tipsEl.classList.add('visible');
+    } else {
+        tipsEl.classList.remove('visible');
+    }
 }
 
 function toggleTimer() {
