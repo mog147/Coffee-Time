@@ -319,10 +319,20 @@ function renderLogPage() {
                     ${l.beans ? `<div class="log-detail">${l.beans}</div>` : ''}
                     <div class="log-stars">${'★'.repeat(l.rating)}${'☆'.repeat(5 - l.rating)}</div>
                 </div>
-                <div class="log-date">${dateStr}</div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+                    <div class="log-date">${dateStr}</div>
+                    <button onclick="deleteLog(${l.id})" style="background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;padding:2px">削除</button>
+                </div>
             </div>
         `;
     }).join('');
+}
+
+function deleteLog(id) {
+    if (!confirm('この記録を削除しますか？')) return;
+    const logs = getLogs().filter(l => l.id !== id);
+    saveLogs(logs);
+    renderLogPage();
 }
 
 // === Init ===
