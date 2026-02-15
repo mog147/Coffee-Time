@@ -222,6 +222,68 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* Buttons */
+/* Beverage Variation Diagrams */
+.variations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.variation-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.mini-cup {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #d1d1d1;
+    border-top: none;
+    border-radius: 0 0 30px 30px;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+}
+
+.layer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    transition: height 0.5s ease;
+}
+
+.layer.espresso {
+    background: #4e342e;
+    z-index: 3;
+}
+
+.layer.milk {
+    background: #fdfdfd;
+    z-index: 2;
+}
+
+.layer.foam {
+    background: #ffffff;
+    z-index: 1;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.variation-name {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-main);
+}
+
+.variation-ratio {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
 button {
     background: var(--text-main);
     color: #fff;
