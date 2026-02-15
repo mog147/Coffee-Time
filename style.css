@@ -201,6 +201,22 @@ main {
     margin-top: 8px
 }
 
+.progress-bar {
+    width: 60%;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 16px auto 0;
+    overflow: hidden
+}
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--coffee);
+    border-radius: 2px;
+    transition: width .3s ease
+}
+
 .timer-controls {
     display: flex;
     justify-content: center;

@@ -41,6 +41,12 @@ function formatTime(sec) {
 
 function updateTimerDisplay() {
     document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+    const bar = document.getElementById('timer-progress');
+    if (bar && timerTotal > 0) {
+        bar.style.width = ((timerTotal - timerSeconds) / timerTotal * 100) + '%';
+    } else if (bar) {
+        bar.style.width = '0%';
+    }
 }
 
 function selectMethod(name, seconds) {
