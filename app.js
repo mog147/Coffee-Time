@@ -106,10 +106,9 @@ function stopTimer() {
     document.querySelectorAll('.method-item').forEach(el => el.classList.remove('selected'));
 }
 
-function startQuickTimer(seconds) {
+function startQuickTimer(name, seconds) {
     navigate('timer');
-    const names = { 240: 'ハンドドリップ', 30: 'エスプレッソ' };
-    timerMethod = names[seconds] || 'タイマー';
+    timerMethod = name;
     timerTotal = seconds;
     timerSeconds = seconds;
     timerRunning = false;
